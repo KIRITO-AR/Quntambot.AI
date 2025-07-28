@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Bot, User } from 'lucide-react';
-import './qunfront.css';
+import './qun.css';
 
 const ChatBot = () => {
   const [messages, setMessages] = useState([

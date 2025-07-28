@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
-import './quantam.jsx';
-  const [count, setCount] = useState(0)
-{ 
-
-
-},
- 
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Qunfront from './components/qunfront';
+  const App = () => {
+  return (
+    <div className="app">
+      <Routes>
+        <Route path="/" element={<Qunfront />} />
+        {/* Add more routes here as needed */}
+      </Routes>
+    </div>
+  );
+};
 
 export default App
