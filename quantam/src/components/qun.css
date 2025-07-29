@@ -236,32 +236,159 @@ body, html {
   border-bottom-right-radius: 8px;
 }
 
+/* Styles for Markdown content within message-text */
 .message-text {
   font-size: 16px;
   line-height: 1.6;
   margin: 0;
-  white-space: pre-wrap;
+  white-space: pre-wrap; /* Preserve whitespace and line breaks */
   word-break: break-word;
+  color: inherit; /* Inherit color from parent bubble */
 }
 
-.message-timestamp {
-  font-size: 12px;
-  opacity: 0.8;
-  margin: 0 10px;
-  transition: opacity 0.3s ease;
+/* General Markdown element styling for bot messages */
+.message.bot .message-text h1,
+.message.bot .message-text h2,
+.message.bot .message-text h3,
+.message.bot .message-text h4,
+.message.bot .message-text h5,
+.message.bot .message-text h6 {
+  color: #333; /* Darker color for headings in bot messages */
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  line-height: 1.2;
 }
 
-.message:hover .message-timestamp {
-  opacity: 1;
+.message.bot .message-text h1 { font-size: 1.8em; }
+.message.bot .message-text h2 { font-size: 1.6em; }
+.message.bot .message-text h3 { font-size: 1.4em; }
+.message.bot .message-text h4 { font-size: 1.2em; }
+.message.bot .message-text h5 { font-size: 1.1em; }
+.message.bot .message-text h6 { font-size: 1em; }
+
+.message.bot .message-text p {
+  margin-bottom: 1em;
 }
 
-.message.bot .message-timestamp {
+.message.bot .message-text a {
+  color: #4facfe; /* Link color for bot messages */
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.message.bot .message-text a:hover {
+  color: #00f2fe;
+}
+
+.message.bot .message-text ul,
+.message.bot .message-text ol {
+  margin: 0 0 1em 20px;
+  padding: 0;
+}
+
+.message.bot .message-text li {
+  margin-bottom: 0.5em;
+}
+
+.message.bot .message-text strong,
+.message.bot .message-text b {
+  font-weight: bold;
+}
+
+.message.bot .message-text em,
+.message.bot .message-text i {
+  font-style: italic;
+}
+
+.message.bot .message-text code {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  font-size: 0.9em;
+  color: #c7254e; /* A distinct color for inline code */
+}
+
+.message.bot .message-text pre {
+  background-color: rgba(0, 0, 0, 0.08);
+  padding: 10px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1em 0;
+}
+
+.message.bot .message-text pre code {
+  display: block;
+  background: none;
+  padding: 0;
+  color: #333; /* Default text color for code blocks */
+  font-size: 0.9em;
+}
+
+.message.bot .message-text blockquote {
+  border-left: 4px solid #ccc;
+  padding-left: 15px;
+  margin: 1em 0;
+  color: #555;
+  font-style: italic;
+}
+
+/* General Markdown element styling for user messages (inherits white text) */
+.message.user .message-text h1,
+.message.user .message-text h2,
+.message.user .message-text h3,
+.message.user .message-text h4,
+.message.user .message-text h5,
+.message.user .message-text h6 {
+  color: white; /* Keep white for user message headings */
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  line-height: 1.2;
+}
+
+.message.user .message-text a {
+  color: #fee140; /* Link color for user messages */
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.message.user .message-text a:hover {
+  color: #fa709a;
+}
+
+.message.user .message-text code {
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  font-size: 0.9em;
+  color: #ffffff; /* White for inline code in user messages */
+}
+
+.message.user .message-text pre {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1em 0;
+}
+
+.message.user .message-text pre code {
+  display: block;
+  background: none;
+  padding: 0;
+  color: white; /* White for code blocks in user messages */
+  font-size: 0.9em;
+}
+
+.message.user .message-text blockquote {
+  border-left: 4px solid rgba(255, 255, 255, 0.5);
+  padding-left: 15px;
+  margin: 1em 0;
   color: rgba(255, 255, 255, 0.8);
+  font-style: italic;
 }
 
-.message.user .message-timestamp {
-  color: rgba(255, 255, 255, 0.9);
-}
 
 .typing {
   background: rgba(255, 255, 255, 0.95) !important;
