@@ -3,6 +3,28 @@ import { Send, Bot, User } from 'lucide-react';
 import { marked } from 'marked'; // Import marked library
 import './qun.css';
 
+// Configure marked to open links in a new tab and add security attributes
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  gfm: true, // Use GitHub Flavored Markdown
+  breaks: true, // Add <br> on a single newline
+  // highlight: function(code, lang) { // Optional: for syntax highlighting
+  //   const hljs = require('highlight.js');
+  //   const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+  //   return hljs.highlight(code, { language }).value;
+  // },
+});
+
+// Extend the default renderer to add target="_blank" and rel="noopener noreferrer" to links
+const renderer = {
+  link(href, title, text) {
+    return `<a href="${href}"${title ? ` title="${title}"` : ''} target="_blank" rel="noopener noreferrer">${text}</a>`;
+  }
+};
+
+marked.use({ renderer });
+
+
 const ChatBot = () => {
   const [messages, setMessages] = useState([
     {
