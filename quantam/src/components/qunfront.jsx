@@ -6,13 +6,12 @@ const ChatBot = () => {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "Hello! I'm your AI assistant. How can I help you today?",
+      text: "Hello! I'm your QUNTUMBOT AI. How can I help you today?",
       sender: 'bot',
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
   
-  // Fixed: Added proper variable names
   const [inputText, setInputText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
@@ -40,7 +39,7 @@ const ChatBot = () => {
     setInputText('');
     setIsTyping(true);
 
-    // Simulate AI response as fallback
+    // Fallback response function
     const simulateAIResponse = () => {
       const responses = [
         "Thank you for your message! I'm currently experiencing some technical difficulties, but I understand you're asking about: " + currentInputText,
@@ -73,9 +72,9 @@ const ChatBot = () => {
       console.log('Sending request to n8n webhook...');
 
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+      const timeoutId = setTimeout(() => controller.abort(), 30000);
 
-      const response = await fetch('https://arkapravad.app.n8n.cloud/webhook/f1bf8a65-bb6f-4508-83cd-eec595dc08d5', {
+      const response = await fetch('https://arkapravad.app.n8n.cloud/webhook/04132c32-e2ae-48dd-b0a8-a852611c8211', {
         ...requestOptions,
         signal: controller.signal
       });
@@ -83,6 +82,7 @@ const ChatBot = () => {
       clearTimeout(timeoutId);
 
       console.log('Response status:', response.status);
+      console.log('Response headers:', response.headers);
 
       if (response.status === 500) {
         throw new Error('Server is currently experiencing issues (500 error)');
@@ -103,21 +103,43 @@ const ChatBot = () => {
       }
 
       console.log('API Response received:', data);
+      console.log('Response type:', typeof data);
+      console.log('Response structure:', JSON.stringify(data, null, 2));
       
-      // Parse response with multiple fallback options
+      // Enhanced response parsing for n8n output structure
       let botResponseText = simulateAIResponse(); // Default fallback
       
       if (data) {
-        botResponseText = data?.candidates?.[0]?.content?.parts?.[0]?.text || 
-                         data?.candidates?.content?.parts?.text ||
-                         data?.response?.text ||
-                         data?.response ||
-                         data?.message ||
-                         data?.text ||
-                         data?.output ||
-                         data?.result ||
-                         data?.answer ||
-                         (typeof data === 'string' ? data : simulateAIResponse());
+        // Handle different possible response structures from n8n
+        if (Array.isArray(data) && data.length > 0) {
+          // If response is an array (like from n8n), get the first item
+          const firstItem = data[0];
+          botResponseText = firstItem?.output || 
+                           firstItem?.message || 
+                           firstItem?.text || 
+                           firstItem?.response || 
+                           simulateAIResponse();
+        } else if (typeof data === 'object') {
+          // If response is an object, try different keys
+          botResponseText = data?.output || 
+                           data?.message || 
+                           data?.text || 
+                           data?.response || 
+                           data?.result || 
+                           data?.answer ||
+                           data?.candidates?.[0]?.content?.parts?.[0]?.text || 
+                           data?.candidates?.content?.parts?.text ||
+                           data?.response?.text ||
+                           simulateAIResponse();
+        } else if (typeof data === 'string') {
+          // If response is a string, use it directly
+          botResponseText = data;
+        }
+      }
+
+      // Additional check if the response is still the fallback
+      if (botResponseText === simulateAIResponse()) {
+        console.warn('Using fallback response. Original data:', data);
       }
 
       const botMessage = {
@@ -131,12 +153,14 @@ const ChatBot = () => {
 
     } catch (error) {
       console.error("Detailed error:", error);
+      console.error("Error name:", error.name);
+      console.error("Error message:", error.message);
       
-      let errorText = simulateAIResponse(); // Use AI-like response as fallback
+      let errorText = simulateAIResponse();
       let isServerError = false;
       
       if (error.name === 'AbortError') {
-        errorText = "The request timed out. Let me try to help you with what I know about: " + currentInputText;
+        errorText = "⏱️ The request took longer than expected. This sometimes happens with complex requests like '" + currentInputText + "'. Let me try to help with what I know!";
       } else if (error.message.includes('500')) {
         isServerError = true;
         errorText = "🔧 I'm experiencing some technical difficulties right now, but I'd still like to help! " +
@@ -194,7 +218,7 @@ const ChatBot = () => {
             <Bot size={24} />
           </div>
           <div className="header-info">
-            <h1 className="header-title">AI Assistant</h1>
+            <h1 className="header-title">QUNTUMBOT AI</h1>
             <p className="header-status">Online • Ready to help</p>
           </div>
         </div>
