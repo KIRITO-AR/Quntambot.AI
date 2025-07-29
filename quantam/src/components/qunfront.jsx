@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Bot, User } from 'lucide-react';
+import { marked } from 'marked'; // Import marked library
 import './qun.css';
 
 const ChatBot = () => {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "Hello! I'm your QUNTUMBOT AI. How can I help you today?",
+      text: "Hello! I'm your QUNTUMBOT AI. How can I help you today? I can understand **bold text**, *italic text*, and even [links](https://www.example.com)! Here's a list:\n\n* Item 1\n* Item 2\n\nAnd some `inline code` or a longer code block:\n\n```javascript\nconsole.log('Hello, Markdown!');\n```",
       sender: 'bot',
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
@@ -23,6 +24,14 @@ const ChatBot = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // Function to render Markdown to HTML
+  const renderMarkdown = (markdownText) => {
+    // Sanitize the HTML to prevent XSS attacks if the markdown source is untrusted.
+    // For this example, we're directly using marked, but in a production app,
+    // consider a DOMPurify-like library if user input is rendered as markdown.
+    return { __html: marked.parse(markdownText) };
+  };
 
   const sendMessage = async () => {
     if (!inputText.trim()) return;
@@ -42,10 +51,10 @@ const ChatBot = () => {
     // Fallback response function
     const simulateAIResponse = () => {
       const responses = [
-        "Thank you for your message! I'm currently experiencing some technical difficulties, but I understand you're asking about: " + currentInputText,
-        "I appreciate your question about " + currentInputText + ". While I'm working on resolving some connectivity issues, I'd be happy to help once they're fixed.",
+        "Thank you for your message! I'm currently experiencing some technical difficulties, but I understand you're asking about: **" + currentInputText + "**",
+        "I appreciate your question about *" + currentInputText + "*. While I'm working on resolving some connectivity issues, I'd be happy to help once they're fixed. You can learn more [here](https://www.google.com).",
         "Your message regarding '" + currentInputText + "' has been received. I'm having some server issues right now, but I'll get back to you shortly!",
-        "I see you're interested in " + currentInputText + ". Unfortunately, I'm experiencing some technical problems at the moment, but I'm working on it!"
+        "I see you're interested in " + currentInputText + ". Unfortunately, I'm experiencing some technical problems at the moment, but I'm working on it! Here's a quick tip: `console.log('debug');`"
       ];
       return responses[Math.floor(Math.random() * responses.length)];
     };
@@ -234,7 +243,8 @@ const ChatBot = () => {
               </div>
               <div className="message-content">
                 <div className="message-bubble">
-                  <p className="message-text">{message.text}</p>
+                  {/* Render Markdown content here */}
+                  <div className="message-text" dangerouslySetInnerHTML={renderMarkdown(message.text)} />
                 </div>
                 <span className="message-timestamp">{message.timestamp}</span>
               </div>
@@ -289,4 +299,3 @@ const ChatBot = () => {
 };
 
 export default ChatBot;
-
