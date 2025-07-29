@@ -29,7 +29,7 @@ const ChatBot = () => {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "Hello! I'm your QUNTUMBOT AI. How can I help you today? I can understand **bold text**, *italic text*, and even [links](https://www.example.com)! Here's a list:\n\n* Item 1\n* Item 2\n\nAnd some `inline code` or a longer code block:\n\n```javascript\nconsole.log('Hello, Markdown!');\n```",
+      text: "Hello! I'm your QUNTUMBOT AI. How can I help you today? I can understand **bold text**, *italic text*, and even [links to external sites](https://www.example.com)! Here's a list:\n\n* Item 1: Check out [Google](https://www.google.com)\n* Item 2: Read about [React](https://react.dev/)\n\nAnd some `inline code` or a longer code block:\n\n```javascript\nconsole.log('Hello, Markdown!');\nconst sum = (a, b) => a + b;\n```\n\nAlso, here's a quote:\n> This is a blockquote with a [link inside](https://www.openai.com/).",
       sender: 'bot',
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
@@ -49,10 +49,12 @@ const ChatBot = () => {
 
   // Function to render Markdown to HTML
   const renderMarkdown = (markdownText) => {
+    const htmlContent = marked.parse(markdownText);
+    console.log("Generated HTML from Markdown:", htmlContent); // Log the HTML
     // Sanitize the HTML to prevent XSS attacks if the markdown source is untrusted.
     // For this example, we're directly using marked, but in a production app,
     // consider a DOMPurify-like library if user input is rendered as markdown.
-    return { __html: marked.parse(markdownText) };
+    return { __html: htmlContent };
   };
 
   const sendMessage = async () => {
