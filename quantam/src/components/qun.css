@@ -964,3 +964,30 @@ body, html {
     transition-duration: 0.01ms !important;
   }
 }
+.drop-zone {
+  margin: 10px;
+  padding: 10px;
+  border: 2px dashed #888;
+  border-radius: 10px;
+  text-align: center;
+  color: #eee;
+  background: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9rem;
+  gap: 4px;
+}
+
+.file-preview {
+  padding: 5px 10px;
+  font-size: 0.85rem;
+  color: #ccc;
+}
+
+.file-item {
+  margin: 2px 0;
+  padding-left: 4px;
+  border-left: 2px solid #aaa;
+}
