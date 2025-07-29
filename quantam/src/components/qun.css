@@ -274,7 +274,6 @@ body, html {
   color: #4facfe; /* Link color for bot messages */
   text-decoration: underline;
   font-weight: 600;
-  cursor: pointer; /* Added for explicit clickable indication */
 }
 
 .message.bot .message-text a:hover {
@@ -351,7 +350,6 @@ body, html {
   color: #fee140; /* Link color for user messages */
   text-decoration: underline;
   font-weight: 600;
-  cursor: pointer; /* Added for explicit clickable indication */
 }
 
 .message.user .message-text a:hover {
@@ -745,217 +743,7 @@ body, html {
     font-size: 14px;
   }
 }
-.message.bot .message-text a {
-  color: #4facfe; /* Link color for bot messages */
-  text-decoration: underline;
-  font-weight: 600;
-}
-.message.bot .message-text a:hover {
-  color: #00f2fe;
-}
 
-.message.user .message-text a {
-  color: #fee140; /* Link color for user messages */
-  text-decoration: underline;
-  font-weight: 600;
-}
-.message.user .message-text a:hover {
-  color: #fa709a;
-}
-/* File Upload and Drag & Drop Styles */
-
-/* Drag Over State */
-.drag-over {
-  position: relative;
-}
-
-/* Drag Overlay */
-.drag-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(102, 126, 234, 0.9);
-  backdrop-filter: blur(10px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.drag-message {
-  text-align: center;
-  color: white;
-  padding: 2rem;
-}
-
-.drag-message h3 {
-  margin: 1rem 0 0.5rem 0;
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.drag-message p {
-  margin: 0;
-  opacity: 0.9;
-}
-
-/* Attached Files Preview */
-.attached-files {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 12px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-}
-
-.attached-files h4 {
-  margin: 0 0 0.75rem 0;
-  color: white;
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.file-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.file-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  background: rgba(255, 255, 255, 0.15);
-  padding: 0.5rem 0.75rem;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.file-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.file-name {
-  color: white;
-  font-size: 0.875rem;
-  font-weight: 500;
-}
-
-.file-size {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.75rem;
-}
-
-.remove-file-btn {
-  background: rgba(239, 68, 68, 0.8);
-  border: none;
-  border-radius: 4px;
-  color: white;
-  padding: 0.25rem;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.remove-file-btn:hover {
-  background: rgba(239, 68, 68, 1);
-}
-
-/* Attach Button */
-.attach-button {
-  background: rgba(255, 255, 255, 0.9);
-  border: none;
-  border-radius: 50%;
-  width: 45px;
-  height: 45px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  color: #667eea;
-}
-
-.attach-button:hover {
-  background: white;
-  transform: scale(1.05);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-/* Files Display in Messages */
-.attached-files-display {
-  margin-top: 0.75rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.file-display-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 0.25rem 0;
-  font-size: 0.875rem;
-}
-
-/* File Icons - Lucide React Icon Colors */
-.text-red-500 {
-  color: #ef4444;
-}
-
-.text-green-500 {
-  color: #10b981;
-}
-
-.text-blue-500 {
-  color: #3b82f6;
-}
-
-.text-purple-500 {
-  color: #8b5cf6;
-}
-
-.text-gray-500 {
-  color: #6b7280;
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-  .file-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-  
-  .file-info {
-    width: 100%;
-  }
-
-  .drag-message {
-    padding: 1rem;
-  }
-
-  .drag-message h3 {
-    font-size: 1.25rem;
-  }
-
-  .attached-files {
-    padding: 0.75rem;
-  }
-}
 /* High-performance mode for lower-end devices */
 @media (prefers-reduced-motion: reduce) {
   * {
@@ -963,31 +751,4 @@ body, html {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-}
-.drop-zone {
-  margin: 10px;
-  padding: 10px;
-  border: 2px dashed #888;
-  border-radius: 10px;
-  text-align: center;
-  color: #eee;
-  background: rgba(255, 255, 255, 0.05);
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.9rem;
-  gap: 4px;
-}
-
-.file-preview {
-  padding: 5px 10px;
-  font-size: 0.85rem;
-  color: #ccc;
-}
-
-.file-item {
-  margin: 2px 0;
-  padding-left: 4px;
-  border-left: 2px solid #aaa;
 }
