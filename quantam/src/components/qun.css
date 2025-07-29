@@ -752,3 +752,20 @@ body, html {
     transition-duration: 0.01ms !important;
   }
 }
+.message.bot .message-text a {
+  color: #4facfe; /* Link color for bot messages */
+  text-decoration: underline;
+  font-weight: 600;
+}
+.message.bot .message-text a:hover {
+  color: #00f2fe;
+}
+
+.message.user .message-text a {
+  color: #fee140; /* Link color for user messages */
+  text-decoration: underline;
+  font-weight: 600;
+}
+.message.user .message-text a:hover {
+  color: #fa709a;
+}
